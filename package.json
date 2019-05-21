@@ -1,0 +1,23 @@
+{
+  "name": "megabot",
+  "version": "1.0.0",
+  "description": "vo se obrigado a xita, n tem jeito",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "watch": "tsc -w",
+    "start": "sh .start.sh",
+    "clearjs": "rm -rf js/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nstseek/megabot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nstseek/megabot/issues"
+  },
+  "homepage": "https://github.com/nstseek/megabot#readme"
+}

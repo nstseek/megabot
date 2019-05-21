@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "js/",
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "removeComments": true
+    },
+    "include": [
+        "ts/"
+    ]
+}
