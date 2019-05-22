@@ -67,12 +67,16 @@ else if(process.argv[2] == "--downloadvideos"){
     var videoLinks: string[] = [];
     for(let i = 0; i < htmlFiles.length; i++){
         let HTMLperiodStartIndex = htmlFiles[i].search('<video id="video-player-frame_html5_api" class="vjs-tech" preload="auto" poster="/images/video/vinheta-alura.png" src=".*">');
+        if(HTMLperiodStartIndex == -1) {
+            throw new Error("FATAL ERROR - FILE DOESNT HAVE A <VIDEO> TAG");
+        }
         HTMLperiodStartIndex = htmlFiles[i].indexOf('src="', HTMLperiodStartIndex);
         HTMLperiodStartIndex = htmlFiles[i].indexOf('"', HTMLperiodStartIndex);
         let HTMLperiodEndIndex = htmlFiles[i].indexOf('"', HTMLperiodStartIndex+1);
         videoLinks.push(htmlFiles[i].slice(HTMLperiodStartIndex+1, HTMLperiodEndIndex));
     }
     var option: any;
+    option = true;
     var filename = "null ";
     var iStart = 0;
     var dirToSave = 'videos/';
@@ -84,7 +88,6 @@ else if(process.argv[2] == "--downloadvideos"){
         finish();
     }
     else {
-        option = readlineSync.keyInYN("Do you want to download them now?");
         filename = readlineSync.question("Enter a name for each file downloaded: ");
         dirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
             - Remember, this directory must exist
