@@ -4,7 +4,8 @@ import * as readlineSync from "readline-sync";
 
 console.time('Total time');
 console.log("\n-------------- Getting HTMLs list --------------\n");
-const lsHtmlDir = childProcess.execSync("ls -t html").toString("utf-8");
+childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });
+const lsHtmlDir = childProcess.execSync("ls html").toString("utf-8");
 const htmlFilenames = lsHtmlDir.split("\n");
 htmlFilenames.pop();
 const $HTMLPATH = "html/";
@@ -63,7 +64,8 @@ else if(process.argv[2] == "--downloadvideos"){
     }
     var option: any;
     var filename = "null ";
-    let iStart = 0;
+    var iStart = 0;
+    var dirToSave = 'video/';
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
@@ -74,6 +76,11 @@ else if(process.argv[2] == "--downloadvideos"){
     else {
         option = readlineSync.keyInYN("Do you want to download them now?");
         filename = readlineSync.question("Enter a name for each file downloaded: ");
+        dirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
+            - Remember, this directory must exist
+            - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
+            - You can use .. to go up a level or / to access root dir
+            - This directory string should end with a / (Ex: if you wanna save to the folder video, you must enter video/)`);
         iStart = Number(readlineSync.question("Enter the start index: "));
     }
     if(option == false) {
@@ -81,7 +88,7 @@ else if(process.argv[2] == "--downloadvideos"){
     }
     for(let i = iStart; i < videoLinks.length; i++) {
         console.log("Downloading video " + (i+1));
-        let execString = 'curl -L -b cookies.txt -o "video/' + filename + " " + (videoLinks.length-i) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+        let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + " " + (videoLinks.length-i) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
         childProcess.execSync(execString, { stdio: 'inherit' });
         // console.log(execString);
     }
