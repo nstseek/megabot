@@ -1,10 +1,11 @@
 # megabot
 vo se obrigado a xita, n tem jeito
 
-megabot do capitao nascimento, ultra xitado, 500 foto por minuto
+Megabot Sorrizo Ronaldtron 4000, ultra xitado, 500 foto por minuto
 
-é preciso (se usar o programa nas config default):
-    - usar o tsc(typescript compiler) para compilar o programa pra js
-    - criar uma pasta HTMLbuf para passar os HTML certos
-    - criar uma pasta videos para receber os videos por padrao (ou criar a pasta que voce desejar)
-    - colocar o arquivo com os cookies na neste diretorio atual em que se encontra o README.md sob o nome de cookies.txt
+- se for a primeira vez que você está rodando o programa, execute no terminal "sh firstrun.sh", senão, execute apenas "sh run.sh"
+
+- toda execução do programa gera um log.txt com todo o output do programa para verificação posterior
+
+- as htmls que serão baixadas devgem ser colocadas em futureHTMLs, podendo ser deletadas/alteradas após o inicio do programa
+

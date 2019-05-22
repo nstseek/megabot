@@ -3,8 +3,18 @@ import * as childProcess from "child_process";
 import * as readlineSync from "readline-sync";
 
 console.time('Total time');
-console.log("\n-------------- Getting HTMLs list --------------\n");
+
+console.log("\n/// MEGABOT SORRIZO RONALDOTRON 4000 - 500 FOTO POR MINUTO ///\n");
+
+console.log("\n-------------- Checking/creating oldHTMLs/ and html/ directories --------------\n");
+childProcess.execSync('mkdir -pv html/', { stdio: 'inherit' });
+childProcess.execSync('mkdir -pv oldHTMLs/', { stdio: 'inherit' });
+childProcess.execSync('mkdir -pv futureHTMLs/', { stdio: 'inherit' });
+console.log("OK.");
+
+console.log("\n-------------- Cleaning and copying HTMLs to html/ --------------\n");
 childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });
+console.log("\n-------------- Getting HTMLs list --------------\n");
 const lsHtmlDir = childProcess.execSync("ls html").toString("utf-8");
 const htmlFilenames = lsHtmlDir.split("\n");
 htmlFilenames.pop();
@@ -65,13 +75,13 @@ else if(process.argv[2] == "--downloadvideos"){
     var option: any;
     var filename = "null ";
     var iStart = 0;
-    var dirToSave = 'video/';
+    var dirToSave = 'videos/';
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
     else if(process.argv[3] == '--show'){
         console.log(videoLinks);
-        process.exit(0);
+        finish();
     }
     else {
         option = readlineSync.keyInYN("Do you want to download them now?");
@@ -80,22 +90,27 @@ else if(process.argv[2] == "--downloadvideos"){
             - Remember, this directory must exist
             - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
             - You can use .. to go up a level or / to access root dir
-            - This directory string should end with a / (Ex: if you wanna save to the folder video, you must enter video/)`);
+            - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)`);
         iStart = Number(readlineSync.question("Enter the start index: "));
     }
     if(option == false) {
-        process.exit(0);
+        finish();
     }
+    childProcess.execSync(('mkdir -pv ' + dirToSave), { stdio: 'inherit' });
     for(let i = iStart; i < videoLinks.length; i++) {
         console.log("Downloading video " + (i+1));
         let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + " " + (videoLinks.length-i) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
         childProcess.execSync(execString, { stdio: 'inherit' });
-        // console.log(execString);
     }
 }
 else {
     console.log("\nNo args or invalid args passed\n");
 }
 
-console.log("\n-------------- Job done --------------\n");
-console.timeEnd('Total time');
+function finish(){
+    console.log("\n-------------- Cleaning html/ and copying HTMLs to oldHTMLs/ --------------\n");
+    childProcess.execSync("sh .finish.sh", { stdio: 'inherit' });
+    console.log("\n-------------- Job done --------------\n");
+    console.timeEnd('Total time');
+    process.exit(0);
+}
