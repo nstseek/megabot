@@ -128,6 +128,7 @@ else if(process.argv[2] == "--downloadvideos"){
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
+            continue;
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
@@ -136,6 +137,7 @@ else if(process.argv[2] == "--downloadvideos"){
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
+            continue;
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
@@ -160,14 +162,15 @@ function getFilename(html: string, i: number) {
     startIndex = html.indexOf('>', startIndex)+1;
     let endIndex = html.indexOf(' |', startIndex);
     let stringBuf = html.slice(startIndex, endIndex);
-    let numIndex = stringBuf.search('Atividade ([0-9])')+10;
-    let stringFinal = stringBuf.substr(0, numIndex) + (i+1) + stringBuf.slice(numIndex+1);
+    let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + i);
     return stringFinal;
 }
 
 function finish(){
-    console.log("\n-------------- Cleaning html/ and copying HTMLs to oldHTMLs/ --------------\n");
-    childProcess.execSync("sh .finish.sh", { stdio: 'inherit' });
+    console.log("\n-------------- Cleaning html/ and copying HTMLs to " + dirToSave + "/oldHTMLs/ --------------\n");
+    childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
+    childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
+    childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });
     console.log("\n-------------- Job done --------------\n");
     if(errorCount) {
         console.log(`!! ${errorCount} error(s) happened during runtime - check output for more details !!\n`);
