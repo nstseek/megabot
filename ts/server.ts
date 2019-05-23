@@ -162,19 +162,62 @@ function getFilename(html: string, i: number) {
     startIndex = html.indexOf('>', startIndex)+1;
     let endIndex = html.indexOf(' |', startIndex);
     let stringBuf = html.slice(startIndex, endIndex);
-    let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + i);
+    let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + (i+1));
     return stringFinal;
 }
 
 function finish(){
     console.log("\n-------------- Cleaning html/ and copying HTMLs to " + dirToSave + "/oldHTMLs/ --------------\n");
-    childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
-    childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
-    childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });
+    try { 
+        childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
+        childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
+        childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });   
+    } catch (error) {
+        
+    }
     console.log("\n-------------- Job done --------------\n");
     if(errorCount) {
         console.log(`!! ${errorCount} error(s) happened during runtime - check output for more details !!\n`);
     }
     console.timeEnd('Total time');
-    process.exit(0);
+    if(process.argv[3] == '--watch'){
+        console.log('\nNow watching for file changes... (Press CTRL+C to exit)');
+        var i = 0;
+        var firstTime = true;
+        fs.watch('futureHTMLs', (event, filename) => {
+            if(event == "change" && filename.search(/(.*).html/) != -1) {
+                console.log(filename + ' created');
+                let htmlWatchFile = fs.readFileSync('futureHTMLs/' + filename, 'utf-8');
+                let watchVideoLink: string;
+                let HTMLperiodStartIndex = htmlWatchFile.search('<video id="video-player-frame_html5_api" class="vjs-tech" preload="auto" poster="/images/video/vinheta-alura.png" src=".*">');
+                if(HTMLperiodStartIndex == -1) {
+                    console.log(`FATAL ERROR - HTML DOESNT HAVE A <video> TAG - SKIPPING AND DELETING THIS HTML`);
+                    childProcess.execSync('rm -f futureHTMLs/' + filename, { stdio: 'inherit' });
+                }
+                else {
+                    HTMLperiodStartIndex = htmlWatchFile.indexOf('src="', HTMLperiodStartIndex);
+                    HTMLperiodStartIndex = htmlWatchFile.indexOf('"', HTMLperiodStartIndex);
+                    let HTMLperiodEndIndex = htmlWatchFile.indexOf('"', HTMLperiodStartIndex+1);
+                    watchVideoLink = htmlWatchFile.slice(HTMLperiodStartIndex+1, HTMLperiodEndIndex);
+                    if(firstTime) {
+                        dirToSave = getDirToSave(htmlWatchFile);
+                        firstTime = false;
+                    }
+                    else if(getDirToSave(htmlWatchFile) != dirToSave) {
+                        i = 0;
+                        dirToSave = getDirToSave(htmlWatchFile);
+                    }
+                    let vidFilename = getFilename(htmlWatchFile, i);
+                    childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
+                    let execString = 'curl -L -b cookies.txt -o "' + dirToSave + vidFilename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + watchVideoLink + '"';
+                    console.log("Downloading video " + (i+1) + ' - ' + vidFilename + ' to ' + dirToSave);
+                    childProcess.execSync(execString, { stdio: 'inherit' });
+                    childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
+                    childProcess.execSync('mv -v "futureHTMLs/' + filename + '" "' + dirToSave + '/HTMLs"', { stdio: 'inherit' });
+                    
+                }
+            }
+        
+        });
+    }
 }
