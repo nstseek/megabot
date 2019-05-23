@@ -13,7 +13,11 @@ childProcess.execSync('mkdir -pv futureHTMLs/', { stdio: 'inherit' });
 console.log("OK.");
 
 console.log("\n-------------- Cleaning and copying HTMLs to html/ --------------\n");
-childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });
+try {
+    childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });   
+} catch (error) {
+    
+}
 console.log("\n-------------- Getting HTMLs list --------------\n");
 const lsHtmlDir = childProcess.execSync("ls html").toString("utf-8");
 const htmlFilenames = lsHtmlDir.split("\n");
@@ -84,6 +88,7 @@ else if(process.argv[2] == "--downloadvideos"){
     var filename = "null ";
     var iStart = 0;
     var dirToSave = 'videos/';
+    var replaceFilename = false;
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
@@ -93,7 +98,7 @@ else if(process.argv[2] == "--downloadvideos"){
     }
     else {
         let tempFilename = readlineSync.question("Enter a name for each file downloaded: ");
-        if (tempFilename != "") filename = tempFilename;
+        if (tempFilename == "" || !tempFilename) replaceFilename = true;
         let tempDirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
             - Remember, this directory must exist
             - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
@@ -113,13 +118,34 @@ else if(process.argv[2] == "--downloadvideos"){
             console.log("ERROR - THIS VIDEO DOES NOT HAVE A VALID LINK (PROBABLY THE HTML DID NOT HAVE A <video> TAG) - SKIPPING...");
             continue;
         }
-        let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + " " + (i+1) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
-        childProcess.execSync(execString, { stdio: 'inherit' });
+        if(replaceFilename) {
+            filename = getFilename(htmlFiles[i], i);
+            let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+            childProcess.execSync(execString, { stdio: 'inherit' });
+        }
+        else {
+            let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+            childProcess.execSync(execString, { stdio: 'inherit' });
+        }
+        
     }
     finish();
 }
 else {
     console.log("\nNo args or invalid args passed\n");
+}
+
+function getFilename(html: string, i: number) {
+    let startIndex = html.search('<title>');
+    console.log('start: ' + startIndex);
+    startIndex = html.indexOf('>', startIndex)+1;
+    let endIndex = html.indexOf(' |', startIndex);
+    console.log('start: ' + startIndex);
+    console.log('end: ' + endIndex);
+    let stringBuf = html.slice(startIndex, endIndex);
+    let numIndex = stringBuf.search('Atividade ([0-9])')+10;
+    let stringFinal = stringBuf.substr(0, numIndex) + (i+1) + stringBuf.slice(numIndex+1);
+    return stringFinal;
 }
 
 function finish(){
