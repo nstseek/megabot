@@ -214,7 +214,8 @@ function finish(){
                     childProcess.execSync(execString, { stdio: 'inherit' });
                     childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
                     childProcess.execSync('mv -v "futureHTMLs/' + filename + '" "' + dirToSave + '/HTMLs"', { stdio: 'inherit' });
-                    
+                    childProcess.execSync('rm -rfv */', { stdio: 'inherit', cwd: 'futureHTMLs' });
+
                 }
             }
         
