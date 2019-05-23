@@ -89,6 +89,7 @@ else if(process.argv[2] == "--downloadvideos"){
     var iStart = 0;
     var dirToSave = 'videos/';
     var replaceFilename = false;
+    var replaceDir = false;
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
@@ -99,32 +100,42 @@ else if(process.argv[2] == "--downloadvideos"){
     else {
         let tempFilename = readlineSync.question("Enter a name for each file downloaded: ");
         if (tempFilename == "" || !tempFilename) replaceFilename = true;
+        else {
+            filename = tempFilename;
+        }
         let tempDirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
             - Remember, this directory must exist
             - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
             - You can use .. to go up a level or / to access root dir
             - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)\n`);
         if (tempDirToSave != "") dirToSave = tempDirToSave;
+        else replaceDir = true;
         let tempiStart = Number(readlineSync.question("Enter the start index: "));
         if (tempiStart) iStart = tempiStart;
     }
     if(option == false) {
         finish();
     }
-    childProcess.execSync(('mkdir -pv ' + dirToSave), { stdio: 'inherit' });
     for(let i = iStart; i < videoLinks.length; i++) {
-        console.log("Downloading video " + (i+1));
         if(videoLinks[i] == "") {
+            console.log("Downloading video " + (i+1));
             console.log("ERROR - THIS VIDEO DOES NOT HAVE A VALID LINK (PROBABLY THE HTML DID NOT HAVE A <video> TAG) - SKIPPING...");
             continue;
         }
         if(replaceFilename) {
             filename = getFilename(htmlFiles[i], i);
+            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
+            childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+            console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
+        
         else {
+            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
+            childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+            console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
@@ -135,13 +146,19 @@ else {
     console.log("\nNo args or invalid args passed\n");
 }
 
+function getDirToSave(html: string) {
+    let startIndex = html.search('<h2 class="task-menu-header-info-title-text">');
+    startIndex = html.indexOf('>', startIndex+1)+1;
+    let endIndex = html.indexOf('<', startIndex);
+    let stringFinal = html.slice(startIndex, endIndex);
+    stringFinal = stringFinal + '/';
+    return stringFinal;
+}
+
 function getFilename(html: string, i: number) {
     let startIndex = html.search('<title>');
-    console.log('start: ' + startIndex);
     startIndex = html.indexOf('>', startIndex)+1;
     let endIndex = html.indexOf(' |', startIndex);
-    console.log('start: ' + startIndex);
-    console.log('end: ' + endIndex);
     let stringBuf = html.slice(startIndex, endIndex);
     let numIndex = stringBuf.search('Atividade ([0-9])')+10;
     let stringFinal = stringBuf.substr(0, numIndex) + (i+1) + stringBuf.slice(numIndex+1);
