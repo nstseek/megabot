@@ -10,3 +10,4 @@ cd ../futureHTMLs
 echo "working in:"
 pwd
 rsync -rvP *.html ../html
+rsync -rvP *.txt ../html
