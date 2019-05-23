@@ -184,6 +184,7 @@ function finish(){
         console.log('\nNow watching for file changes... (Press CTRL+C to exit)');
         var i = 0;
         var firstTime = true;
+        if(process.argv[4] == '--git') setTimeout(gitPull, 5000);
         fs.watch('futureHTMLs', (event, filename) => {
             if(event == "change" && filename.search(/(.*).html/) != -1) {
                 console.log(filename + ' created');
@@ -191,8 +192,13 @@ function finish(){
                 let watchVideoLink: string;
                 let HTMLperiodStartIndex = htmlWatchFile.search('<video id="video-player-frame_html5_api" class="vjs-tech" preload="auto" poster="/images/video/vinheta-alura.png" src=".*">');
                 if(HTMLperiodStartIndex == -1) {
-                    console.log(`FATAL ERROR - HTML DOESNT HAVE A <video> TAG - SKIPPING AND DELETING THIS HTML`);
-                    childProcess.execSync('rm -f futureHTMLs/' + filename, { stdio: 'inherit' });
+                    if(process.argv[4] == '--git') {
+                        console.log(`FATAL ERROR - HTML DOESNT HAVE A <video> TAG - SKIPPING THIS HTML`);
+                    }
+                    else {
+                        console.log(`FATAL ERROR - HTML DOESNT HAVE A <video> TAG - SKIPPING AND DELETING THIS HTML`);
+                        childProcess.execSync('rm -f futureHTMLs/' + filename, { stdio: 'inherit' });
+                    }
                 }
                 else {
                     HTMLperiodStartIndex = htmlWatchFile.indexOf('src="', HTMLperiodStartIndex);
@@ -204,21 +210,30 @@ function finish(){
                         firstTime = false;
                     }
                     else if(getDirToSave(htmlWatchFile) != dirToSave) {
+                        console.log('getDirToSave: ' + getDirToSave(htmlWatchFile));
+                        console.log('dirToSave: ' + dirToSave);
                         i = 0;
                         dirToSave = getDirToSave(htmlWatchFile);
                     }
                     let vidFilename = getFilename(htmlWatchFile, i);
                     childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
-                    let execString = 'curl -L -b cookies.txt -o "' + dirToSave + vidFilename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + watchVideoLink + '"';
+                    let execString = 'curl -L -b cookies.txt -o "' + dirToSave + vidFilename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + watchVideoLink + '"';
                     console.log("Downloading video " + (i+1) + ' - ' + vidFilename + ' to ' + dirToSave);
                     childProcess.execSync(execString, { stdio: 'inherit' });
                     childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
-                    childProcess.execSync('mv -v "futureHTMLs/' + filename + '" "' + dirToSave + '/HTMLs"', { stdio: 'inherit' });
+                    childProcess.execSync('cp -v "futureHTMLs/' + filename + '" "' + dirToSave + '/HTMLs"', { stdio: 'inherit' });
                     childProcess.execSync('rm -rfv */', { stdio: 'inherit', cwd: 'futureHTMLs' });
+                    i++;
 
                 }
             }
         
         });
     }
+}
+
+function gitPull() {
+    console.log('updating with git repo...');
+    childProcess.execSync('git pull', { stdio: 'inherit', cwd: 'futureHTMLs' });
+    setTimeout(gitPull, 5000);
 }

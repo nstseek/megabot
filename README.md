@@ -10,3 +10,9 @@ Megabot Sorrizo Ronaldtron 4000, ultra xitado, 500 foto por minuto
 - as htmls que serão baixadas devgem ser colocadas em futureHTMLs, podendo ser deletadas/alteradas após o inicio do programa
 
 - se estiver na pucrs, o script so ira funcionar no meu usuario, com meu DriveH, para isso, rode "run firstrunpucrs.sh" e nas rodadas subsequentes "sh runpucrs.sh"
+
+- o programa pode ser usado na forma --watch, onde ele ira observar por mudanças na pasta futureHTMLs/ e baixará automaticamente arquivos adicionados nessa pasta
+
+- o programa também suporta a opção --git, onde ele irá sincronizar a pasta futureHTMLs/ com sua repo, atualizando a pasta com htmls enviadas remotamente e baixando automaticamente, o servidor atualiza o git a cada minuto
+
+- para usar as opcoes --watch e --git, você deve rodar node js/server.js --downloadvideos --watch --git
