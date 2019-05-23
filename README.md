@@ -9,3 +9,4 @@ Megabot Sorrizo Ronaldtron 4000, ultra xitado, 500 foto por minuto
 
 - as htmls que serão baixadas devgem ser colocadas em futureHTMLs, podendo ser deletadas/alteradas após o inicio do programa
 
+- se estiver na pucrs, o script so ira funcionar no meu usuario, com meu DriveH, para isso, rode "run firstrunpucrs.sh" e nas rodadas subsequentes "sh runpucrs.sh"
