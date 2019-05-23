@@ -65,10 +65,14 @@ if(process.argv[2] == '--getpartlinks'){
 else if(process.argv[2] == "--downloadvideos"){
     console.log("\n-------------- Finding video links --------------\n");
     var videoLinks: string[] = [];
+    var errorCount: number = 0;
     for(let i = 0; i < htmlFiles.length; i++){
         let HTMLperiodStartIndex = htmlFiles[i].search('<video id="video-player-frame_html5_api" class="vjs-tech" preload="auto" poster="/images/video/vinheta-alura.png" src=".*">');
         if(HTMLperiodStartIndex == -1) {
-            throw new Error("FATAL ERROR - FILE DOESNT HAVE A <VIDEO> TAG");
+            console.log(`FATAL ERROR - HTML[${i+1}] DOESNT HAVE A <video> TAG - SKIPPING THIS HTML`);
+            videoLinks.push("");
+            errorCount++;
+            continue;
         }
         HTMLperiodStartIndex = htmlFiles[i].indexOf('src="', HTMLperiodStartIndex);
         HTMLperiodStartIndex = htmlFiles[i].indexOf('"', HTMLperiodStartIndex);
@@ -88,13 +92,16 @@ else if(process.argv[2] == "--downloadvideos"){
         finish();
     }
     else {
-        filename = readlineSync.question("Enter a name for each file downloaded: ");
-        dirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
+        let tempFilename = readlineSync.question("Enter a name for each file downloaded: ");
+        if (tempFilename != "") filename = tempFilename;
+        let tempDirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
             - Remember, this directory must exist
             - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
             - You can use .. to go up a level or / to access root dir
-            - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)`);
-        iStart = Number(readlineSync.question("Enter the start index: "));
+            - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)\n`);
+        if (tempDirToSave != "") dirToSave = tempDirToSave;
+        let tempiStart = Number(readlineSync.question("Enter the start index: "));
+        if (tempiStart) iStart = tempiStart;
     }
     if(option == false) {
         finish();
@@ -102,9 +109,14 @@ else if(process.argv[2] == "--downloadvideos"){
     childProcess.execSync(('mkdir -pv ' + dirToSave), { stdio: 'inherit' });
     for(let i = iStart; i < videoLinks.length; i++) {
         console.log("Downloading video " + (i+1));
-        let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + " " + (videoLinks.length-i) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
+        if(videoLinks[i] == "") {
+            console.log("ERROR - THIS VIDEO DOES NOT HAVE A VALID LINK (PROBABLY THE HTML DID NOT HAVE A <video> TAG) - SKIPPING...");
+            continue;
+        }
+        let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + " " + (i+1) + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
         childProcess.execSync(execString, { stdio: 'inherit' });
     }
+    finish();
 }
 else {
     console.log("\nNo args or invalid args passed\n");
@@ -114,6 +126,9 @@ function finish(){
     console.log("\n-------------- Cleaning html/ and copying HTMLs to oldHTMLs/ --------------\n");
     childProcess.execSync("sh .finish.sh", { stdio: 'inherit' });
     console.log("\n-------------- Job done --------------\n");
+    if(errorCount) {
+        console.log(`!! ${errorCount} error(s) happened during runtime - check output for more details !!\n`);
+    }
     console.timeEnd('Total time');
     process.exit(0);
 }
