@@ -12,7 +12,9 @@ fs.watch(`watchDir`, (event, filename) => {
         let counterString = String(counter);
         if(counter < 10) counterString = `0${counterString}`;
         try {
-            childProcess.execSync(`mv -v "${filename}" ${counterString}.html`, { stdio: 'inherit', cwd: 'watchDir' });   
+            childProcess.execSync(`mv -v "${filename}" ${counterString}.html`, { stdio: 'inherit', cwd: 'watchDir' });
+            childProcess.execSync(`cp -v ${counterString}.html ../futureHTMLs/`, { stdio: 'inherit', cwd: 'watchDir' });
+            childProcess.execSync(`rm -vf ${counterString}.html`, { stdio: 'inherit', cwd: 'watchDir' });
         } catch (error) {
             
         }
