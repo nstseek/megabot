@@ -128,7 +128,6 @@ else if(process.argv[2] == "--downloadvideos"){
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
-            continue;
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
@@ -137,11 +136,13 @@ else if(process.argv[2] == "--downloadvideos"){
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
-            continue;
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
     }
+    finish();
+}
+else if (process.argv[2] == '--watch'){
     finish();
 }
 else {
@@ -180,11 +181,11 @@ function finish(){
         console.log(`!! ${errorCount} error(s) happened during runtime - check output for more details !!\n`);
     }
     console.timeEnd('Total time');
-    if(process.argv[3] == '--watch'){
+    if(process.argv[2] == '--watch' || process.argv[3] == '--watch'){
         console.log('\nNow watching for file changes... (Press CTRL+C to exit)');
         var i = 0;
         var firstTime = true;
-        if(process.argv[4] == '--git') setTimeout(gitPull, 60000);
+        if(process.argv[3] == '--git' || process.argv[4] == '--git') setTimeout(gitPull, 60000);
         fs.watch('futureHTMLs', (event, filename) => {
             if(event == "change" && filename.search(/(.*).html/) != -1) {
                 console.log(filename + ' created');
@@ -192,7 +193,7 @@ function finish(){
                 let watchVideoLink: string;
                 let HTMLperiodStartIndex = htmlWatchFile.search('<video id="video-player-frame_html5_api" class="vjs-tech" preload="auto" poster="/images/video/vinheta-alura.png" src=".*">');
                 if(HTMLperiodStartIndex == -1) {
-                    if(process.argv[4] == '--git') {
+                    if(process.argv[3] == '--git' || process.argv[4] == '--git') {
                         console.log(`FATAL ERROR - HTML DOESNT HAVE A <video> TAG - SKIPPING THIS HTML`);
                     }
                     else {
