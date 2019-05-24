@@ -184,7 +184,7 @@ function finish(){
         console.log('\nNow watching for file changes... (Press CTRL+C to exit)');
         var i = 0;
         var firstTime = true;
-        if(process.argv[4] == '--git') setTimeout(gitPull, 5000);
+        if(process.argv[4] == '--git') setTimeout(gitPull, 60000);
         fs.watch('futureHTMLs', (event, filename) => {
             if(event == "change" && filename.search(/(.*).html/) != -1) {
                 console.log(filename + ' created');
@@ -235,5 +235,5 @@ function finish(){
 function gitPull() {
     console.log('updating with git repo...');
     childProcess.execSync('git pull', { stdio: 'inherit', cwd: 'futureHTMLs' });
-    setTimeout(gitPull, 5000);
+    setTimeout(gitPull, 60000);
 }

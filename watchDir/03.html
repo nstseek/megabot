@@ -1,0 +1,826 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR" data-product="alura">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+		
+
+
+
+<!-- Page hiding snippet (recommended)  -->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>
+	(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+	h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+	(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+	})(window,document.documentElement,'async-hide','dataLayer',4000,
+		{'GTM-TN542JN':true});
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer', 'GTM-TN542JN');
+</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<script type="text/javascript">
+        dataLayer.push({
+            'tipoPagina': 'Aula',
+            'curso': 'Angular parte 1: Fundamentos'
+        });
+	</script>
+
+	
+
+	<title>Angular parte 1: Aula 1 - Atividade 8 Entendendo a estrutura | Alura - Cursos online de tecnologia</title>
+	
+	<link rel="shortcut icon" href="/images/alura/favicon.ico">
+	
+	<link href='//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Open+Sans:400,300,600,700,800|Source+Serif+Pro' rel='stylesheet'>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	
+	<link rel="stylesheet" href="/style/lib/video-js.f429230f.css">
+    <link rel="stylesheet" href="/style/lib/video-js-resolutions.d48f855c.css">
+    <link rel="stylesheet" href="/style/lib/prettify.4f36b4ca.css">
+
+	<link rel="stylesheet" href="/style/gnarus/base.1e88adda.css">
+	<link rel="stylesheet" href="/style/gnarus/block/formattedText.afb4622e.css">
+	
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/container.532971f7.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/classPage.30778e01.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/menuSettings.ab9e5c02.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/taskProgress.6f863249.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/taskMessageInfo.4becb946.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/alternativeList.ba7ea685.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/taskFeedback.1c82537d.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/markdown.c1e23fdd.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/finishSection.7e40d196.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/phrase.d61af0f3.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/hqexplanation.3ed41021.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/openquestion.811813bb.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/textcontent.7298b79f.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/video.7c2303aa.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/singlechoice.4a8caf68.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/music.c02947a9.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/multiplechoice.70f60e4c.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/videodialog.7d2041b8.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/fillintheblank.81cde842.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/speakingpractice.5068bb32.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/pronunciationpractice.7d2876f7.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/repetition.e9ba636b.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/genericVideo.9239c799.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/projectSubmit.cd21d24b.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/extraContentTask.b2d126e6.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/taskContent.1ef47209.css">
+	<link rel="stylesheet" href="/style/gnarus/page/classPage/taskButtons.1c232b93.css">
+	<link rel="stylesheet" href="/style/gnarus/block/markdownEditor.4bc2327a.css">
+	<link rel="stylesheet" href="/style/gnarus/block/audioPlayer.a55d412c.css">
+
+	
+	
+	<style type="text/css">
+		.task:before {
+			background-color: #FFE000;
+		}
+	</style>
+	
+	
+	
+	</head>
+<body>
+
+
+	
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TN542JN"
+				  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+<section class='task' data-allow-answer="true" data-task-section-exam="false" data-task-type="video" data-task-id="38463" data-author-id="150517" data-course-code="angular-fundamentos" data-section-name="Bem começado, metade feito" data-section-id="6305" data-section-number="1" data-domain="cursos.alura.com.br" data-hasFeedbackAnswer="false" data-url-prefix="/">
+	<button title="Fechar menu" aria-label="Fechar menu"
+	type="button"
+	class='openMenu-button task-body-button '></button>
+	
+	<section class="task-body">
+		
+		<header class="task-body-header">
+			<div class="container">
+				<h1 class="task-body-header-title">
+					<svg class="task-body-header-title-svg" aria-label="Atividade de Vídeo">
+						<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+					</svg>
+					<small>08</small>
+					<span class="task-body-header-title-text"> Entendendo a estrutura</span>
+				</h1>
+				
+					<div class="task-body-header-actions">
+						<a href="/course/angular-fundamentos/task/38463/next" aria-hidden="true" class="task-actions-button task-actions-button-next task-submit">Próxima Atividade</a>
+					</div>
+				
+			</div>
+		</header>
+		<main class="task-body-main" data-should-warn="false">
+			
+
+
+
+
+
+
+
+	
+	
+	
+	
+		
+
+
+
+
+
+
+
+    
+    
+        <section class="video" id="task-content">
+            <div class="container theater-mode">
+                
+
+
+
+
+<div class="settings">
+	<button type="button" class="settings-button" aria-label="Configurações">
+		<svg class="settings-button-icon">
+			<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#MENU_SETTINGS" />
+		</svg>
+	</button>
+	<div class="settings-box">
+		<span class="settings-box-title"></span>
+		<ul class="settings-box-list">
+			
+				
+				
+				
+					<li class="settings-box-item settings-box-item-player">
+						<button class="video-changePlayer" data-uri="https://player.vimeo.com/video/277643342">
+								Mudar o player
+							<span hidden>indisponível</span>
+						</button>
+					</li>
+					
+						
+							
+							
+								<li class="settings-box-item settings-box-item-suggestion"><a href="/suggestions/new/angular-fundamentos/38463/question">Sugerir alteração</a></li>
+							
+						
+					
+				
+				
+			
+			
+		</ul>
+	</div>
+</div>
+                
+
+
+
+
+<section id="video" class="video-container">
+    <input id="videoPreferences-player" type="hidden" value="CUSTOM" />
+    
+    <div id="video-container-data" class=""
+         data-section-id="6305" data-course="angular-fundamentos"
+         data-playback-rate="1.0" data-task-id="38463"
+         data-quality="hd" data-course-id="865"
+         data-gnarus-name="alura" >
+
+        <div id="loading">
+            <img src="/images/video/vinheta-alura.png" alt="Carregando vídeo"/>
+            <img class="loading-spinning" src="/images/gnarus/classPage/loading-video.svg"/>
+        </div>
+    </div>
+</section>
+                
+                    
+                        <h2 class="video-transcription-title">Transcrição</h2>
+                    
+                    <section id="transcription" class="video-transcription video-transcription--inactive transcription-toggle">
+                        <div class="formattedText" data-external-links>
+                                <p>Vamos entender a estrutura que foi gerada? Inicialmente, abriremos a pasta &#34;alurapic&#34; no Visual Studio Code, em &#34;File &gt; Open Folder...&#34;, ou pelo atalho &#34;Ctrl &#43; K Ctrl &#43; O&#34;. Selecionaremos a pasta, cujo conteúdo será exibido em um painel lateral esquerdo no programa.</p>
+<p>O Visual Studio se integra muito bem à linguagem utilizada pelo Angular, que é o <strong>TypeScript</strong>. Mas onde é que se localiza a página gerada anteriormente, com &#34;Welcome to app!&#34;, em nosso projeto? Neste painel lateral, não há nenhum <code>index.html</code>, e o importante, neste momento, é que todo código que diz respeito à aplicação está dentro de &#34;src&#34; (de <em>source</em>), inclusive <code>index.html</code>.</p>
+<p>Pode ser tentador abrirmos diretamente a pasta &#34;src&#34; no programa, porém isto não é recomendado. Deve-se sempre abrir a &#34;alurapic&#34; como pasta raiz do Visual Studio Code, pois ele precisa encontrar alguns arquivos de configuração dentro dela. Caso contrário, teremos muitos problemas.</p>
+<p>Vamos, então, abrir <code>index.html</code>, que é a página padrão criada pelo servidor local configurado pelo Angular CLI. Entretanto, a página do navegador (<code>localhost:4200</code>) possui uma imagem, lista de links, entre outros elementos que não aparecem no código de <code>index.html</code>. Além disso, o conteúdo dentro das tags <code>&lt;body&gt;</code> são tags que nem existem no mundo HTML, <code>&lt;app-root&gt;</code>.</p>
+<p>Em Angular, <strong>tudo é um componente</strong>, capaz de guardar um comportamento, o CSS, e a marcação HTML, a estrutura, em um único local. Assim, a página <code>localhost:4200</code> não é diferente no Angular, já que uma página também é um componente, e possui HTML, CSS e, caso haja, JavaScript, tudo vinculado em um único objeto denominado componente. Assim, <code>&lt;app-root&gt;</code> indica a existência de componentes.</p>
+<p>Mas onde se encontram estes componentes, em nosso projeto?</p>
+<p>Tudo que formos criar ao longo do curso ficará dentro de &#34;app&#34;, em que há <code>app.component.ts</code>. Abrindo-o, veremos que, basicamente, temos uma classe do <strong><em>ECMAScript 6</em></strong>, com um <em>Decorator</em> anotado com <code>&#64;Component</code>, o qual torna a classe um componente. O <em>Decorator</em> é uma sintaxe especial do Angular, do TypeScript, em que é possível incluir uma <strong>metainformação</strong> sobre uma determinada classe, no caso.</p>
+<p>O que é uma metainformação?</p>
+<p>Ao criarmos instâncias desta classe, criamos objetos. Estamos incluindo mais uma informação desta classe, que diz respeito ao framework. Então, a classe <code>AppComponent</code> só é um componente porque está anotada com <code>&#64;Component</code>. Nele, existe um <code>selector: &#39;app-root&#39;</code>, mesmo nome encontrado em <code>index.html</code>.</p>
+<p>Este <em>selector</em> nos permite utilizar o componente em templates em sua forma declarativa, então, todo o conteúdo de <code>app.component.ts</code>, sua apresentação, o que ele faz, seu CSS, são acessados por meio dele. Também neste arquivo, há <code>templateUrl: &#39;./app.component.html&#39;</code>, que informa a apresentação deste componente.</p>
+<p>Se abrirmos <code>app.component.html</code>, encontraremos o código referente à apresentação que vemos na página do navegador. Então, o Angular carregará, exibindo o primeiro componente, e seu template. Voltando a <code>app.component.ts</code>, o <code>styleUrls: [&#39;./app.component.css&#39;]</code> informa onde se localiza o CSS utilizado por este componente.</p>
+<p>Quando uma aplicação Angular é carregada pela primeira vez, sabemos que é a <code>&lt;app-root&gt;</code> que será carregada, pois ela, na sua forma declarativa no <em>selector</em>, é que está no <code>index.html</code>.</p>
+<p>De que forma o Angular consegue acessar tudo isso que vimos e transformá-los em algo que o navegador consegue carregar e entender?</p>
+<p>Internamente, o Angular utiliza um <em>web pack</em>, um <em>module bundle</em>, isto é, um empacotador de módulos famoso, utilizado por <em>Create React App</em>, <em>Vue CLI</em>, e outros frameworks <em>Single Page Application</em>. O interessante é que em nenhum momento estas configurações do <em>web pack</em> são exibidas, pois elas ficam encapsuladas pelo Angular CLI.</p>
+<p>Com isso, fizemos o primeiro tour em relação à aplicação. Antes de começarmos a criar nossos próprios componentes, veremos mais um detalhe, a seguir.</p>
+
+                        </div>
+                    </section>
+                    
+                        <button class="video-transcription-button transcription-toggle" aria-hidden="true">
+                            <span class="video-transcription-button-text">continuar lendo</span>
+                        </button>
+                    
+                
+            </div>
+        </section>
+    
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+			
+				
+
+
+
+
+	
+	
+		<section class="task-actions">
+			<div class="container">
+				
+
+
+
+
+    <a href="/forum/curso-angular-fundamentos/exercicio-entendendo-a-estrutura/38463/novo" class=" task-actions-button task-actions-button-forum">Discutir no Forum</a>
+
+				
+				
+				
+					<a href="/course/angular-fundamentos/task/38463/next" class="task-actions-button task-body-actions-button task-actions-button-next">Próxima Atividade</a>
+				
+			</div>
+		</section>
+	
+
+
+			
+		</main>
+	</section>
+	
+
+
+
+
+
+
+
+
+
+
+
+<aside class="task-menu">
+	<section class="task-menu-header">
+		<button title="Fechar menu" aria-label="Fechar menu" type="button" class='openMenu-button task-menu-button '></button>
+		<div class="task-menu-header-info">
+			<a class="task-menu-header-info-title" href="/course/angular-fundamentos" title="Ir para página do curso">
+				
+					
+					
+						<img src="https://www.alura.com.br/assets/api/cursos/angular-fundamentos.svg" alt="ícone Angular parte 1: Fundamentos" class="task-menu-header-info-title-icon " width="37.5px" height="37.5px"/>
+					
+				
+				<h2 class="task-menu-header-info-title-text">Angular parte 1: Fundamentos</h2>
+			</a>
+			
+				<div class="task-menu-header-info-progress">
+					
+					<span class="task-menu-header-info-progress-percentage ">10%</span>
+					<span class="task-menu-header-info-progress-bar" style="background-image: linear-gradient(to right, #9de482, #9de482 10%, transparent 10%);"></span>
+				</div>
+			
+		</div>
+	</section>
+	
+	<section class="task-menu-section">
+		<div class="task-menu-section-title">
+			<span class="task-menu-section-title-number ">Aula<strong>01</strong>
+				<span>de 07</span></span>
+			<h3 class="task-menu-section-title-text">
+				Bem começado, metade feito
+			</h3>
+		</div>
+	</section>
+	<nav class="task-menu-nav">
+		<h2 class="task-menu-nav-title">
+			Atividades
+			<span>8 de 15</span>
+		</h2>
+		<ul class="task-menu-nav-list">
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38460" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">01</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Introdução">
+							Introdução
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">02min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38461" class="task-menu-nav-item-link task-menu-nav-item-link-HQ_EXPLANATION">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Explicação não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#HQ_EXPLANATION" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">02</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="(Obrigatório) Infraestrutura do treinamento">
+							(Obrigatório) Infraestrutura do treinamento
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38466" class="task-menu-nav-item-link task-menu-nav-item-link-TEXT_CONTENT">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade sem Resposta do Aluno não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#TEXT_CONTENT" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">03</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Motivação para uso de uma SPA">
+							Motivação para uso de uma SPA
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38469" class="task-menu-nav-item-link task-menu-nav-item-link-HQ_EXPLANATION">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Explicação não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#HQ_EXPLANATION" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">04</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Considerações sobre o uso do Angular">
+							Considerações sobre o uso do Angular
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/43061" class="task-menu-nav-item-link task-menu-nav-item-link-TEXT_CONTENT">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade sem Resposta do Aluno não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#TEXT_CONTENT" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">05</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Angularjs vs Angular">
+							Angularjs vs Angular
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38462" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">06</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Angular CLI, instalação e criação do projeto">
+							Angular CLI, instalação e criação do projeto
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">09min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/42635" class="task-menu-nav-item-link task-menu-nav-item-link-SINGLE_CHOICE">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade de Única Escolha não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#SINGLE_CHOICE" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">07</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Comandos iniciais">
+							Comandos iniciais
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item task-menu-nav-item--selected">
+					<a href="/course/angular-fundamentos/task/38463" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">08</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Entendendo a estrutura">
+							Entendendo a estrutura
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">08min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38505" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">09</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Primeiro contato com data binding">
+							Primeiro contato com data binding
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">05min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38508" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">10</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Adequando o template gerado e mais data binding">
+							Adequando o template gerado e mais data binding
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">07min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/42639" class="task-menu-nav-item-link task-menu-nav-item-link-SINGLE_CHOICE">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade de Única Escolha não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#SINGLE_CHOICE" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">11</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Fixando data binding">
+							Fixando data binding
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38464" class="task-menu-nav-item-link task-menu-nav-item-link-VIDEO">
+						<svg class="task-menu-nav-item-svg task-menu-nav-item-svg--done" aria-label="Atividade de Vídeo concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#VIDEO" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">12</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Convenções de código">
+							Convenções de código
+						</span>
+						
+						<span class="task-menu-nav-item-infos">
+							
+								<span class="task-menu-nav-item-videoDuration" title="Ir para o Vídeo">03min</span>
+							
+						</span>
+					</span>
+					
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/42641" class="task-menu-nav-item-link task-menu-nav-item-link-SINGLE_CHOICE">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade de Única Escolha não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#SINGLE_CHOICE" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">13</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Convenções do Angular">
+							Convenções do Angular
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38493" class="task-menu-nav-item-link task-menu-nav-item-link-TEXT_CONTENT">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Atividade sem Resposta do Aluno não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#TEXT_CONTENT" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">14</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="Consolidando seu conhecimento">
+							Consolidando seu conhecimento
+						</span>
+						
+					</a>
+				</li>
+			
+				
+				<li class="task-menu-nav-item ">
+					<a href="/course/angular-fundamentos/task/38492" class="task-menu-nav-item-link task-menu-nav-item-link-HQ_EXPLANATION">
+						<svg class="task-menu-nav-item-svg " aria-label="Atividade de Explicação não concluída">
+							
+								
+								<use xlink:href="/images/gnarus/classPage/icon-menu-icons.svg#HQ_EXPLANATION" />
+							
+							
+						
+					</svg>
+					<span class="task-menu-nav-item-number">15</span>
+					<span class="task-menu-nav-item-text" >
+						<span class="task-menu-nav-item-title" title="O que aprendemos?">
+							O que aprendemos?
+						</span>
+						
+					</a>
+				</li>
+			
+			
+		</ul>
+	</nav>
+	<section class="task-menu-sections">
+		<h2 class="task-menu-sections-title">
+			Aulas
+		</h2>
+		<select class="task-menu-sections-select" onchange="location.href='/course/angular-fundamentos/section/'+this.value;">
+			
+				<option value="1" selected>01. Bem começado, metade feito</option>
+			
+				<option value="2" >02. Criando o primeiro componente</option>
+			
+				<option value="3" >03. Integração com Web API's</option>
+			
+				<option value="4" >04. Single Page Applications e rotas</option>
+			
+				<option value="5" >05. Novo componente, novos conceitos</option>
+			
+				<option value="6" >06. Melhorando a experiência do usuário</option>
+			
+				<option value="7" >07. Lapidando ainda mais nossa aplicação</option>
+			
+		</select>
+	</section>
+	<section class="task-menu-others">
+		<h2 class="task-menu-others-title ">
+			Outros Links
+		</h2>
+		<a href=/forum/curso-angular-fundamentos/todos
+			 class="task-menu-others-link task-menu-others-link-forum"
+			 title="Ir para o fórum do curso">Fórum</a>
+		<a href="/dashboard" class="task-menu-others-link task-menu-others-link-curso" title="Ir para a página principal">Trocar Curso</a>
+	</section>
+	<section class="task-menu-footer">
+		<a class="task-menu-footer-user" href="/user/arturcostar" title="Ir para sua página de usuário">
+			<img src="https://www.gravatar.com/avatar/90a4c2f8acdf231db0dd72c6c4f4ff16.png?r=PG&size=60x60&d=https%3A%2F%2Fcursos.alura.com.br%2Fimages%2Fforum%2Favatar_a.png" alt="Gravatar de Artur Costa Ribeiro" class="task-menu-footer-img" width="40px" height="40px"/>
+			
+				<p class="task-menu-footer-detalhes">
+					<span class="task-menu-footer-detalhes-nome">Artur Costa Ribeiro</span>
+					<span class="task-menu-footer-detalhes-xp">
+						0 xp
+					</span>
+				</p>
+			
+			<input type="hidden" value="" />
+			<input type="hidden" value="" />
+		</a>
+		<a href="/dashboard" class="task-menu-footer-logo">
+			<img src="/images/gnarus/classPage/icon-menu-alura.svg" alt="Logo da Alura" class="task-menu-footer-logo-image" width="19px" height="32px" title="Ir para a página principal" />
+		</a>
+	</section>
+</aside>
+
+</section>
+
+
+
+
+	<script src="/script/lib/jquery2/jquery-2.1.3.min.32015dd4.js"></script>
+	<script src="/script/gnarus/block/buttonToggle.1c952a31.js" async></script>
+	<script src="/script/gnarus/block/sectionMenu.9c6d35d8.js" async></script>
+
+	<script src="/script/lib/marked.min.a2851798.js"></script>
+	<script src="/script/gnarus/block/markdownEditor.4b03bd09.js" async></script>
+	<script src="/script/gnarus/block/caret.df98f577.js" async></script>
+	<script src="/js/gnarus/keydownWatchers.f20680cd.js" async></script>
+	<script src="/js/prettify.min.49a10a85.js" async></script>
+
+	<script src="/script/gnarus/block/preventsMultipleInteractions.ccefe158.js" async></script>
+	<script src="/script/gnarus/block/assessment.050f656f.js" async></script>
+	<script src="/script/gnarus/block/login-form.20124546.js" async></script>
+
+	<script src="/script/gnarus/classPage/menuSettings.586ae39e.js"></script>
+	<script src="/script/gnarus/classPage/ProjectSubmit.1da29f73.js"></script>
+	<script src="/script/gnarus/classPage/classPage.a7020be4.js"></script>
+	<script src="/script/gnarus/classPage/aria.1c51db86.js"></script>
+	<script src="/script/gnarus/classPage/phrase.dda08bd7.js"></script>
+	<script src="/script/gnarus/classPage/feedback.98f71e18.js"></script>
+	<script src="/script/gnarus/ExtraContentProgressRequest.74258bb3.js"></script>
+	
+	
+		<!-- video specific -->
+		<script src="/js/gnarus/scroll-top.8c3e8bb3.js"></script>
+		<script src="/script/lib/video.min.42199840.js"></script>
+		<script src="/script/gnarus/videos/vimeo.20b9d6f3.js"></script>
+		<script src="/script/lib/video-js.ga.min.277960ee.js"></script>
+		<script src="/script/lib/video-js-resolutions.min.f0ae32b9.js"></script>
+		<script src="/script/gnarus/classPage/video.d81dca2d.js"></script>
+		<script src="/script/lib/vimeo.min.ac59d050.js"></script>
+	
+
+	
+	
+	
+	
+
+	<script src="/script/musicdot/partitura.60748cc1.js"></script>
+	<script src="/script/gnarus/classPage/audioProgress.71d14880.js"></script>
+	<script src="/script/gnarus/block/audioPlayer.9e2e5334.js"></script>
+
+		
+
+	
+		
+
+<script src="/script/gnarus/customerio.ad52be65.js"></script>
+<script>
+    var tracker = new CustomerIO('fccd7e3d49531457b6b2');
+    tracker.identify('150517', 'arturcostar@gmail.com', '1542764311');
+</script>
+	
+
+</body>
+</html>
+
+<script src="/script/gnarus/task/MarkdownProcessing.f83261d2.js"></script>
+<script>
+	new MarkdownProcessing("https://cursos.alura.com.br").onLoad();
+</script>

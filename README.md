@@ -15,4 +15,4 @@ Megabot Sorrizo Ronaldtron 4000, ultra xitado, 500 foto por minuto
 
 - o programa também suporta a opção --git, onde ele irá sincronizar a pasta futureHTMLs/ com sua repo, atualizando a pasta com htmls enviadas remotamente e baixando automaticamente, o servidor atualiza o git a cada minuto
 
-- para usar as opcoes --watch e --git, você deve rodar node js/server.js --downloadvideos --watch --git
+- para usar as opcoes --watch e --git, você pode rodar node js/server.js --downloadvideos --watch --git ou somente node js/server.js  --watch --git
