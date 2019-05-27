@@ -235,6 +235,10 @@ function finish(){
 
 function gitPull() {
     console.log('updating with git repo...');
-    childProcess.execSync('git pull', { stdio: 'inherit', cwd: 'futureHTMLs' });
+    try {
+        childProcess.execSync('git pull', { stdio: 'inherit', cwd: 'futureHTMLs' });
+    } catch (error) {
+        
+    }
     setTimeout(gitPull, 60000);
 }
