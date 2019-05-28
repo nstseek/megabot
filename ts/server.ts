@@ -220,7 +220,12 @@ function finish(){
                     childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
                     let execString = 'curl -L -b cookies.txt -o "' + dirToSave + vidFilename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + watchVideoLink + '"';
                     console.log("Downloading video " + (i+1) + ' - ' + vidFilename + ' to ' + dirToSave);
-                    childProcess.execSync(execString, { stdio: 'inherit' });
+                    try {
+                        childProcess.execSync(execString, { stdio: 'inherit' });    
+                    } catch (error) {
+                        
+                    }
+                    
                     childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
                     childProcess.execSync('cp -v "futureHTMLs/' + filename + '" "' + dirToSave + '/HTMLs"', { stdio: 'inherit' });
                     childProcess.execSync('rm -rfv */', { stdio: 'inherit', cwd: 'futureHTMLs' });
