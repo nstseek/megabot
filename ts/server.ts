@@ -116,6 +116,7 @@ else if(process.argv[2] == "--downloadvideos"){
     if(option == false) {
         finish();
     }
+    var counter = 1;
     for(let i = iStart; i < videoLinks.length; i++) {
         if(videoLinks[i] == "") {
             console.log("Downloading video " + (i+1));
@@ -123,11 +124,14 @@ else if(process.argv[2] == "--downloadvideos"){
             continue;
         }
         if(replaceFilename) {
-            filename = getFilename(htmlFiles[i], i);
+            filename = getFilename(htmlFiles[i], counter);
             if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
+            if(dirToSave != getDirToSave(htmlFiles[i])) counter = 1;
+            else counter++;
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
+            console.log(execString);
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
         
@@ -138,7 +142,6 @@ else if(process.argv[2] == "--downloadvideos"){
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             childProcess.execSync(execString, { stdio: 'inherit' });
         }
-        
     }
     finish();
 }
@@ -163,7 +166,8 @@ function getFilename(html: string, i: number) {
     startIndex = html.indexOf('>', startIndex)+1;
     let endIndex = html.indexOf(' |', startIndex);
     let stringBuf = html.slice(startIndex, endIndex);
-    let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + (i+1));
+    let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + (i));
+    stringFinal = stringFinal.replace("/", "-");
     return stringFinal;
 }
 
