@@ -120,6 +120,7 @@ else if(process.argv[2] == "--downloadvideos"){
     if(option == false) {
         finish();
     }
+    dirToSave = getDirToSave(htmlFiles[iStart]);
     for(let i = iStart; i < videoLinks.length; i++) {
         if(videoLinks[i] == "") {
             console.log("Downloading video " + (i+1));
