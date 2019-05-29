@@ -90,7 +90,7 @@ else if(process.argv[2] == "--downloadvideos"){
     var dirToSave = 'videos/';
     var replaceFilename = false;
     var replaceDir = false;
-    var counter = 1;
+    var counter = 0;
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
