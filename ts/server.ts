@@ -142,7 +142,16 @@ else if(process.argv[2] == "--downloadvideos"){
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             console.log(execString);
-            childProcess.execSync(execString, { stdio: 'inherit' });
+            while(1){
+                try {
+                    childProcess.execSync(execString, { stdio: 'inherit' });
+                    break;
+                }
+                catch (err) {
+                    console.log('ERROR - ' + err);
+                    console.log('trying again...');
+                }
+            }
         }
         
         else {
