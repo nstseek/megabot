@@ -127,10 +127,16 @@ else if(process.argv[2] == "--downloadvideos"){
             continue;
         }
         if(replaceFilename) {
+            if(dirToSave != getDirToSave(htmlFiles[i]) && replaceDir) {
+                counter = 1;
+                console.log(`different dir: ${dirToSave} && ${getDirToSave(htmlFiles[i])} - counter: ${counter}`);
+                dirToSave = getDirToSave(htmlFiles[i]);
+            }
+            else {
+                counter++;
+                console.log(`same dir - counter: ${counter}`);
+            }
             filename = getFilename(htmlFiles[i], counter);
-            if(dirToSave != getDirToSave(htmlFiles[i])) counter = 1;
-            else counter++;
-            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
