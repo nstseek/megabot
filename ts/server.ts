@@ -90,6 +90,7 @@ else if(process.argv[2] == "--downloadvideos"){
     var dirToSave = 'videos/';
     var replaceFilename = false;
     var replaceDir = false;
+    var counter = 1;
     if(process.argv[3] == '--quiet') {
         option = true;        
     }
@@ -111,12 +112,14 @@ else if(process.argv[2] == "--downloadvideos"){
         if (tempDirToSave != "") dirToSave = tempDirToSave;
         else replaceDir = true;
         let tempiStart = Number(readlineSync.question("Enter the start index: "));
-        if (tempiStart) iStart = tempiStart;
+        if (tempiStart) {
+            iStart = tempiStart;
+            counter = tempiStart+1;
+        }
     }
     if(option == false) {
         finish();
     }
-    var counter = 1;
     for(let i = iStart; i < videoLinks.length; i++) {
         if(videoLinks[i] == "") {
             console.log("Downloading video " + (i+1));
@@ -125,9 +128,9 @@ else if(process.argv[2] == "--downloadvideos"){
         }
         if(replaceFilename) {
             filename = getFilename(htmlFiles[i], counter);
-            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
             if(dirToSave != getDirToSave(htmlFiles[i])) counter = 1;
             else counter++;
+            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
