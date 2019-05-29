@@ -114,7 +114,7 @@ else if(process.argv[2] == "--downloadvideos"){
         let tempiStart = Number(readlineSync.question("Enter the start index: "));
         if (tempiStart) {
             iStart = tempiStart;
-            counter = tempiStart+1;
+            counter = tempiStart;
         }
     }
     if(option == false) {
