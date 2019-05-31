@@ -186,7 +186,16 @@ function getFilename(html: string, i: number) {
     let endIndex = html.indexOf(' |', startIndex);
     let stringBuf = html.slice(startIndex, endIndex);
     let stringFinal = stringBuf.replace(/Atividade\ ([0-9]*)/, 'Atividade ' + (i));
-    stringFinal = stringFinal.replace("/", "-");
+    while(1){
+        if(stringFinal.indexOf("/") != -1){
+            stringFinal = stringFinal.replace("/", "-");
+        }
+        else {
+            break;
+        }
+        
+    }
+    
     return stringFinal;
 }
 
