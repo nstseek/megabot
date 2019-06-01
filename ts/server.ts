@@ -204,14 +204,7 @@ function getFilename(html: string, i: number) {
 }
 
 function finish(){
-    console.log("\n-------------- Cleaning html/ and copying HTMLs to " + dirToSave + "/oldHTMLs/ --------------\n");
-    try { 
-        childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
-        childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
-        childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });   
-    } catch (error) {
-        
-    }
+    
     console.log("\n-------------- Job done --------------\n");
     if(errorCount) {
         console.log(`!! ${errorCount} error(s) happened during runtime - check output for more details !!\n`);
