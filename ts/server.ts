@@ -114,14 +114,14 @@ else if(process.argv[2] == "--downloadvideos"){
         let tempiStart = Number(readlineSync.question("Enter the start index: "));
         if (tempiStart) {
             iStart = tempiStart;
-            counter = tempiStart;
+            iStart--;
         }
     }
     if(option == false) {
         finish();
     }
-    dirToSave = getDirToSave(htmlFiles[iStart]);
-    for(let i = iStart; i < videoLinks.length; i++) {
+    dirToSave = getDirToSave(htmlFiles[0]);
+    for(let i = 0; i < videoLinks.length; i++) {
         if(videoLinks[i] == "") {
             console.log("Downloading video " + (i+1));
             console.log("ERROR - THIS VIDEO DOES NOT HAVE A VALID LINK (PROBABLY THE HTML DID NOT HAVE A <video> TAG) - SKIPPING...");
@@ -139,12 +139,16 @@ else if(process.argv[2] == "--downloadvideos"){
             }
             filename = getFilename(htmlFiles[i], counter);
             childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
+            childProcess.execSync(('mkdir -pv "' + dirToSave + 'HTMLs/"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             console.log(execString);
             while(1){
                 try {
-                    childProcess.execSync(execString, { stdio: 'inherit' });
+                    if(i >= iStart) {
+                        childProcess.execSync(execString, { stdio: 'inherit' });
+                        fs.writeFileSync(`${dirToSave}HTMLs/${filename}.html`, htmlFiles[i]);
+                    }
                     break;
                 }
                 catch (err) {
