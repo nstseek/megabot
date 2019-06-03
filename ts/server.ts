@@ -83,43 +83,41 @@ else if(process.argv[2] == "--downloadvideos"){
         let HTMLperiodEndIndex = htmlFiles[i].indexOf('"', HTMLperiodStartIndex+1);
         videoLinks.push(htmlFiles[i].slice(HTMLperiodStartIndex+1, HTMLperiodEndIndex));
     }
-    var option: any;
-    option = true;
-    var filename = "null ";
+    var filename = "null";
     var iStart = 0;
     var dirToSave = 'videos/';
-    var replaceFilename = false;
-    var replaceDir = false;
-    var counter = 0;
-    if(process.argv[3] == '--quiet') {
-        option = true;        
-    }
-    else if(process.argv[3] == '--show'){
-        console.log(videoLinks);
-        finish();
-    }
-    else {
-        let tempFilename = readlineSync.question("Enter a name for each file downloaded: ");
-        if (tempFilename == "" || !tempFilename) replaceFilename = true;
-        else {
-            filename = tempFilename;
-        }
-        let tempDirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
-            - Remember, this directory must exist
-            - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
-            - You can use .. to go up a level or / to access root dir
-            - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)\n`);
-        if (tempDirToSave != "") dirToSave = tempDirToSave;
-        else replaceDir = true;
-        let tempiStart = Number(readlineSync.question("Enter the start index: "));
-        if (tempiStart) {
-            iStart = tempiStart;
-            counter = tempiStart;
-        }
-    }
-    if(option == false) {
-        finish();
-    }
+    var replaceFilename = true;
+    var replaceDir = true;
+    var counter = parseInt(process.argv[3]);
+    // if(process.argv[3] == '--quiet') {
+    //     option = true;        
+    // }
+    // else if(process.argv[3] == '--show'){
+    //     console.log(videoLinks);
+    //     finish();
+    // }
+    // else {
+    //     let tempFilename = readlineSync.question("Enter a name for each file downloaded: ");
+    //     if (tempFilename == "" || !tempFilename) replaceFilename = true;
+    //     else {
+    //         filename = tempFilename;
+    //     }
+    //     let tempDirToSave = readlineSync.question(`Enter the directory where I should save the videos: 
+    //         - Remember, this directory must exist
+    //         - For this, you should consider wd(working directory) as the actual location. The pwd output is equivalent to the place where you called node js/server.js
+    //         - You can use .. to go up a level or / to access root dir
+    //         - This directory string should end with a / (Ex: if you wanna save to the folder videos, you must enter videos/)\n`);
+    //     if (tempDirToSave != "") dirToSave = tempDirToSave;
+    //     else replaceDir = true;
+    //     let tempiStart = Number(readlineSync.question("Enter the start index: "));
+    //     if (tempiStart) {
+    //         iStart = tempiStart;
+    //         counter = tempiStart;
+    //     }
+    // }
+    // if(option == false) {
+    //     finish();
+    // }
     dirToSave = getDirToSave(htmlFiles[iStart]);
     for(let i = iStart; i < videoLinks.length; i++) {
         if(videoLinks[i] == "") {
