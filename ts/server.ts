@@ -24,7 +24,6 @@ const htmlFilenames = lsHtmlDir.split("\n");
 htmlFilenames.pop();
 const $HTMLPATH = "html/";
 console.log(htmlFilenames.length + " file(s) found in html directory");
-
 let htmlFiles: string[] = [];
 
 console.log("\n-------------- Reading HTMLs --------------\n");
