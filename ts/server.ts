@@ -7,21 +7,48 @@ console.time('Total time');
 console.log("\n/// MEGABOT SORRIZO RONALDOTRON 4000 - 500 FOTO POR MINUTO ///\n");
 
 console.log("\n-------------- Checking/creating oldHTMLs/ and html/ directories --------------\n");
-childProcess.execSync('mkdir -pv html/', { stdio: 'inherit' });
-childProcess.execSync('mkdir -pv oldHTMLs/', { stdio: 'inherit' });
-childProcess.execSync('mkdir -pv futureHTMLs/', { stdio: 'inherit' });
+if(process.platform == "win32") {
+    try {
+        childProcess.execSync('html', { stdio: 'inherit' });
+    } catch (error) {
+        console.log('task failed');
+        console.log(error);
+    }
+    try {
+        childProcess.execSync('oldHTMLs', { stdio: 'inherit' });
+    } catch (error) {
+        console.log('task failed');
+        console.log(error);
+    }
+    try {
+        childProcess.execSync('futureHTMLs', { stdio: 'inherit' });
+    } catch (error) {
+        console.log('task failed');
+        console.log(error);
+    }
+}
+else {
+    childProcess.execSync('mkdir -pv html/', { stdio: 'inherit' });
+    childProcess.execSync('mkdir -pv oldHTMLs/', { stdio: 'inherit' });
+    childProcess.execSync('mkdir -pv futureHTMLs/', { stdio: 'inherit' });
+}
 console.log("OK.");
 
 console.log("\n-------------- Cleaning and copying HTMLs to html/ --------------\n");
-try {
-    childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });   
-} catch (error) {
-    
+if(process.platform == 'win32') {
+    childProcess.execSync('del /F /S * ', { stdio: 'inherit', cwd: './html' });
+    childProcess.execSync('del /F /S * ', { stdio: 'inherit', cwd: './oldHTMLs' });
+    childProcess.execSync('robocopy .\\futureHTMLs .\\htmls /MIR', { stdio: 'inherit' });
+}
+else {
+    try {
+        childProcess.execSync("sh .copy.sh", { stdio: 'inherit' });   
+    } catch (error) {
+        
+    }
 }
 console.log("\n-------------- Getting HTMLs list --------------\n");
-const lsHtmlDir = childProcess.execSync("ls html").toString("utf-8");
-const htmlFilenames = lsHtmlDir.split("\n");
-htmlFilenames.pop();
+const htmlFilenames = fs.readdirSync('./html', 'utf-8');
 const $HTMLPATH = "html/";
 console.log(htmlFilenames.length + " file(s) found in html directory");
 let htmlFiles: string[] = [];
@@ -135,7 +162,14 @@ else if(process.argv[2] == "--downloadvideos"){
                 console.log(`same dir - counter: ${counter}`);
             }
             filename = getFilename(htmlFiles[i], counter);
-            childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
+            if(process.platform == 'win32') {
+                try {
+                    childProcess.execSync(('mkdir "' + dirToSave + '"'), { stdio: 'inherit' });    
+                } catch (error) {
+                    
+                }
+            }
+            else childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             console.log(execString);
@@ -152,8 +186,14 @@ else if(process.argv[2] == "--downloadvideos"){
         }
         
         else {
-            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);
-            childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
+            if(replaceDir) dirToSave = getDirToSave(htmlFiles[i]);if(process.platform == 'win32') {
+                try {
+                    childProcess.execSync(('mkdir "' + dirToSave + '"'), { stdio: 'inherit' });    
+                } catch (error) {
+                    
+                }
+            }
+            else childProcess.execSync(('mkdir -pv "' + dirToSave + '"'), { stdio: 'inherit' });
             let execString = 'curl -L -b cookies.txt -o "' + dirToSave + filename + ' ' + i + '.mp4" -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36" "' + videoLinks[i] + '"';
             console.log("Downloading video " + (i+1) + ' - ' + filename + ' to ' + dirToSave);
             childProcess.execSync(execString, { stdio: 'inherit' });
@@ -198,12 +238,23 @@ function getFilename(html: string, i: number) {
 
 function finish(){
     console.log("\n-------------- Cleaning html/ and copying HTMLs to " + dirToSave + "/oldHTMLs/ --------------\n");
-    try { 
-        childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
-        childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
-        childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });   
-    } catch (error) {
-        
+    if (process.platform == 'win32') {
+        try {
+            childProcess.execSync(('mkdir HTMLs'), { stdio: 'inherit', cwd: dirToSave });
+            childProcess.execSync(('robocopy html "' + dirToSave + '" /MIR'), { stdio: 'inherit' });
+            childProcess.execSync(('del *'), { stdio: 'inherit', cwd: './html' });    
+        } catch (error) {
+            
+        }
+    }
+    else {
+        try { 
+            childProcess.execSync("mkdir -pv HTMLs", { stdio: 'inherit', cwd: dirToSave });
+            childProcess.execSync('rsync -rvP *.html "../' + dirToSave + '/HTMLs"', { stdio: 'inherit', cwd: 'html' });
+            childProcess.execSync('rm -rf *', { stdio: 'inherit', cwd: 'html' });   
+        } catch (error) {
+            
+        }
     }
     console.log("\n-------------- Job done --------------\n");
     if(errorCount) {
