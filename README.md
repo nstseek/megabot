@@ -1,7 +1,5 @@
 # megabot
-vo se obrigado a xita, n tem jeito
-
-Megabot Sorrizo Ronaldtron 4000, ultra xitado, 500 foto por minuto
+nodejs application to automatize the download process
 
 - se for a primeira vez que você está rodando o programa, execute no terminal "sh firstrun.sh", senão, execute apenas "sh run.sh"
 
